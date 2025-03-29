@@ -5,10 +5,10 @@ POST http://localhost:5000/api/users
 Content-Type: application/json
 
 {
-    "username": "alice",
-    "password": "alphabetagamma",
-    "email": "alice@beta.com",
-    "isAdmin": true
+	"username": "sarah_miller",
+	"email": "sarah.miller@example.com",
+	"password": "S@rahPass99",
+	"isAdmin": true
 }
 
 ###
@@ -18,18 +18,57 @@ GET http://localhost:5000/api/users/profile
 GET http://localhost:5000/api/users
 
 ###
-POST http://localhost:5000/api/users/auth/login
+GET  http://localhost:5000/api/users/67e6f7005efe4fa5d4b43ea8
+
+###
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+    "email": "sarah.miller@example.com",
+	"password": "S@rahPass99"
+}
+###
+
+POST http://localhost:5000/api/users/login
 Content-Type: application/json
 
 {
     "email": "alice@beta.com",
     "password": "alphabetagamma"
 }
+
 ###
-POST  http://localhost:5000/api/users/auth/logout
+POST  http://localhost:5000/api/users/logout
 
+###
+PUT http://localhost:5000/api/users/profile
+Content-Type: application/json
 
+{
+    "newUsername": "alice42",
+    "newEmail": "alice@alpha.com"
+}
+
+###
+DELETE http://localhost:5000/api/users/67e6f6385efe4fa5d4b43e99
 
 ###
 DELETE http://localhost:5000/api/users/
+
+###
+POST http://localhost:5000/api/products
+Content-Type: application/json
+
+{
+	"title": "Wireless Bluetooth Headphones",
+	"price": 59.99,
+	"description": "Noise-canceling over-ear headphones with deep bass and 40-hour battery life.",
+    "category": "Electronics",
+    "image": "/image"
+}
+
+###
+GET http://localhost:5000/api/products
+
 

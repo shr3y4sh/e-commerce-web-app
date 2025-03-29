@@ -17,6 +17,20 @@ router.get('/profile', authenticateToken, userController.getCurrentUser);
 
 router.put('/profile', authenticateToken, userController.updateCurrentUser);
 
+router.get(
+	'/:id',
+	authenticateToken,
+	authorizeAdmin,
+	userController.getUserById
+);
+
+router.delete(
+	'/:id',
+	authenticateToken,
+	authorizeAdmin,
+	userController.deleteUserAsAdmin
+);
+
 // Special just for me, remove later
 router.delete('/', userController.deleteAllUser);
 ///////////

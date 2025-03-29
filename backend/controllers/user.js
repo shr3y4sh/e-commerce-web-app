@@ -64,8 +64,33 @@ const updateCurrentUser = async (req, res) => {
 		user.email = req.body.newEmail;
 	}
 
+	// changing username and email is simple
+	// password will need more logic here
+	// oldpassword things and all
+
 	user = await user.save();
 	return res.status(200).json(user);
+};
+
+// GET /api/users/:id
+const getUserById = async (req, res) => {
+	const user = await User.findById(req.params.id);
+	if (!user) {
+		return res.status(404).json({ message: 'User not found' });
+	}
+
+	res.status(200).json(user);
+};
+
+// DELETE /api/users/:id
+
+const deleteUserAsAdmin = async (req, res) => {
+	const user = await User.findById(req.params.id);
+	if (!user) {
+		return res.status(404).json({ message: 'User not found' });
+	}
+	await user.deleteOne();
+	res.status(204).json({ message: 'User deleted' });
 };
 
 // DELETE /api/users/
@@ -80,5 +105,7 @@ export default {
 	createUser,
 	getCurrentUser,
 	updateCurrentUser,
+	getUserById,
+	deleteUserAsAdmin,
 	deleteAllUser
 };

@@ -1,0 +1,52 @@
+[
+	{
+		"title": "Wireless Bluetooth Headphones",
+		"price": 59.99,
+		"description": "Noise-canceling over-ear headphones with deep bass and 40-hour battery life."
+	},
+	{
+		"title": "Smartphone Stand",
+		"price": 12.99,
+		"description": "Adjustable aluminum phone stand compatible with all smartphones and tablets."
+	},
+	{
+		"title": "Stainless Steel Water Bottle",
+		"price": 18.5,
+		"description": "Insulated, leak-proof bottle that keeps drinks cold for 24 hours and hot for 12 hours."
+	},
+	{
+		"title": "Mechanical Gaming Keyboard",
+		"price": 89.99,
+		"description": "RGB backlit keyboard with tactile switches for a high-performance gaming experience."
+	},
+	{
+		"title": "Ergonomic Office Chair",
+		"price": 149.99,
+		"description": "Adjustable, high-back chair with lumbar support and breathable mesh design."
+	},
+	{
+		"title": "Portable Power Bank",
+		"price": 34.99,
+		"description": "10,000mAh fast-charging power bank compatible with iPhones and Android devices."
+	},
+	{
+		"title": "Wireless Charging Pad",
+		"price": 24.99,
+		"description": "Fast wireless charger compatible with Qi-enabled devices including iPhones and Samsung Galaxy phones."
+	},
+	{
+		"title": "Smart LED Light Bulbs",
+		"price": 29.99,
+		"description": "Color-changing Wi-Fi smart bulbs compatible with Alexa and Google Assistant."
+	},
+	{
+		"title": "Non-Stick Cookware Set",
+		"price": 79.99,
+		"description": "10-piece durable, non-stick cookware set with ergonomic handles and even heat distribution."
+	},
+	{
+		"title": "Robot Vacuum Cleaner",
+		"price": 199.99,
+		"description": "Smart robotic vacuum with automatic scheduling, powerful suction, and app control."
+	}
+]
