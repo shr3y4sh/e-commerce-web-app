@@ -1,8 +1,12 @@
-const baseUrl = import.meta.env.VITE_BACKEND_URL;
-
 export async function getAllProducts() {
 	try {
-		const res = await fetch(`${baseUrl}/products/`);
+		const res = await fetch('/api/products', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+
 		if (!res.ok) {
 			const error = new Error(
 				'An error occurred while fetching the products.'
@@ -10,9 +14,9 @@ export async function getAllProducts() {
 			error.code = res.status;
 			throw error;
 		}
+		console.log(res);
 
-		const data = await res.json();
-		return data;
+		return await res.json();
 	} catch (error) {
 		console.log(error);
 	}
@@ -20,7 +24,12 @@ export async function getAllProducts() {
 
 export async function getProductById(id) {
 	try {
-		const res = await fetch(`${baseUrl}/products/${id}`);
+		const res = await fetch(`/api/products/${id}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
 		if (!res.ok) {
 			const error = new Error(
 				'An error occurred while fetching the product.'
@@ -28,8 +37,7 @@ export async function getProductById(id) {
 			error.code = res.status;
 			throw error;
 		}
-		const data = await res.json();
-		return data;
+		return await res.json();
 	} catch (error) {
 		console.log(error);
 	}

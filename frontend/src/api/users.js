@@ -1,6 +1,6 @@
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
-export async function login(queryParams) {
+export async function loginQuery(queryParams) {
 	const res = await fetch(`${baseUrl}users/login`, {
 		method: 'POST',
 		headers: {
@@ -12,7 +12,7 @@ export async function login(queryParams) {
 	return await res.json();
 }
 
-export async function signup(queryParams) {
+export async function signupQuery(queryParams) {
 	const res = await fetch(`${baseUrl}users/signup`, {
 		method: 'POST',
 		headers: {

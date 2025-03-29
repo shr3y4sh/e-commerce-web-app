@@ -17,9 +17,9 @@
 	color: #fff;
 }
 
-.nav-bar button {
+.nav-bar button,
+.nav-bar button.active {
 	color: #fff;
-	background-color: rgb(12, 24, 58);
 	text-decoration: none;
 	border: none;
 	border-radius: 0.5rem;
@@ -27,4 +27,13 @@
 	font-weight: bold;
 	margin-right: 20px;
 	padding: 1rem;
+}
+
+.nav-bar button {
+	background-color: rgb(12, 24, 58);
+}
+
+.nav-bar button.active,
+.nav-bar button:hover {
+	background-color: rgb(47, 89, 202);
 }

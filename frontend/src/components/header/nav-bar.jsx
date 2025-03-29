@@ -1,32 +1,56 @@
-import { useState } from 'react';
-
 import './header.css';
+import { useContext } from 'react';
+import { LoginContext } from '../forms/login/login-context';
 
-export default function NavBar({ isLoggedIn }) {
+export default function NavBar({ highlight, togglePage, login }) {
+	const isLoggedIn = useContext(LoginContext);
+
 	return (
-		<>
+		<LoginContext.Provider value={login.current}>
 			<div className='nav-bar'>
 				<div className='nav-bar-item'>
-					<a href='/'>
-						<button>Home</button>
-					</a>
+					<button
+						className={highlight === 'home' ? 'active' : ''}
+						onClick={(e) => {
+							e.stopPropagation();
+							togglePage('home');
+						}}>
+						Home
+					</button>
 				</div>
 				<div className='nav-bar-item'>
-					<a href='/products'>
-						<button>Products</button>
-					</a>
+					<button
+						className={highlight === 'products' ? 'active' : ''}
+						onClick={(e) => {
+							e.stopPropagation();
+							togglePage('products');
+						}}>
+						Products
+					</button>
 				</div>
 				{isLoggedIn && (
 					<>
 						<div className='nav-bar-item'>
-							<a href='/cart'>
-								<button>Cart</button>
-							</a>
+							<button
+								className={highlight === 'cart' ? 'active' : ''}
+								onClick={(e) => {
+									e.stopPropagation();
+									togglePage('cart');
+								}}>
+								Cart
+							</button>
 						</div>
 						<div className='nav-bar-item'>
-							<a href='/orders'>
-								<button>Orders</button>
-							</a>
+							<button
+								className={
+									highlight === 'orders' ? 'active' : ''
+								}
+								onClick={(e) => {
+									e.stopPropagation();
+									togglePage('orders');
+								}}>
+								Orders
+							</button>
 						</div>
 					</>
 				)}
@@ -34,26 +58,40 @@ export default function NavBar({ isLoggedIn }) {
 			<div className='nav-bar'>
 				{!isLoggedIn && (
 					<>
-						<div className='nav-bar-item'>
-							<a href='/login'>
-								<button>Login</button>
-							</a>
+						{' '}
+						<div>
+							<button
+								className={
+									highlight === 'login' ? 'active' : ''
+								}
+								onClick={(e) => {
+									e.stopPropagation();
+									togglePage('login');
+								}}>
+								Login
+							</button>
 						</div>
 						<div className='nav-bar-item'>
-							<a href='/signup'>
-								<button>Sign Up</button>
-							</a>
+							<button
+								className={
+									highlight === 'signup' ? 'active' : ''
+								}
+								onClick={() => togglePage('signup')}>
+								Sign Up
+							</button>
 						</div>
 					</>
 				)}
 				{isLoggedIn && (
 					<div className='nav-bar-item'>
-						<a href='/profile'>
-							<button>Profile</button>
-						</a>
+						<button
+							className={highlight === 'profile' ? 'active' : ''}
+							onClick={() => togglePage('profile')}>
+							Profile
+						</button>
 					</div>
 				)}
 			</div>
-		</>
+		</LoginContext.Provider>
 	);
 }

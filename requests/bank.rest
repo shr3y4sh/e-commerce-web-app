@@ -61,9 +61,9 @@ POST http://localhost:5000/api/products
 Content-Type: application/json
 
 {
-	"title": "Wireless Bluetooth Headphones",
-	"price": 59.99,
-	"description": "Noise-canceling over-ear headphones with deep bass and 40-hour battery life.",
+	"title": "Stainless Steel Water Bottle",
+	"price": 18.5,
+	"description": "Insulated, leak-proof bottle that keeps drinks cold for 24 hours and hot for 12 hours.",
     "category": "Electronics",
     "image": "/image"
 }
