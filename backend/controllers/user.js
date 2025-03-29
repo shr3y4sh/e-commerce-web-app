@@ -8,39 +8,9 @@ const getUsers = async (req, res) => {
 	res.status(200).json(users);
 };
 
-// POST /api/users
-const createUser = async (req, res) => {
-	let newUser = {
-		username: req.body.username,
-		password: req.body.password,
-		email: req.body.email,
-		isAdmin: req.body.isAdmin || false
-	};
-
-	if (!(newUser.username && newUser.password && newUser.email)) {
-		res.status(400).json({ message: 'Missing required fields' });
-		return;
-	}
-
-	if (newUser.password.length < 5) {
-		res.status(400).json({
-			message: 'Password must be at least 5 characters long'
-		});
-		return;
-	}
-
-	const passwordHash = await bcrypt.hash(newUser.password, 10);
-	newUser.password = passwordHash;
-
-	newUser = new User(newUser);
-
-	const savedUser = await newUser.save();
-	res.status(201).json(savedUser);
-};
-
 // GET /api/users/profile
 const getCurrentUser = async (req, res) => {
-	const user = await User.findById(req.user.id);
+	const user = await User.findById(req.auth.userId);
 
 	if (!user) {
 		return res.status(404).json({ message: 'User not found' });
@@ -51,22 +21,31 @@ const getCurrentUser = async (req, res) => {
 
 // PUT /api/users/profile
 const updateCurrentUser = async (req, res) => {
-	let user = await User.findById(req.user.id);
+	let user = await User.findById(req.auth.userId);
 	if (!user) {
 		return res.status(404).json({ message: 'User not found' });
 	}
 
-	if (req.body.newUsername) {
-		user.username = req.body.newUsername;
+	if (req.body.username) {
+		user.username = req.body.username;
 	}
 
-	if (req.body.newEmail) {
-		user.email = req.body.newEmail;
+	if (req.body.email) {
+		user.email = req.body.email;
 	}
 
-	// changing username and email is simple
-	// password will need more logic here
-	// oldpassword things and all
+	if (req.body.oldpassword && req.body.newpassword) {
+		const isMatch = await bcrypt.compare(
+			req.body.oldpassword,
+			user.password
+		);
+		if (!isMatch) {
+			return res.status(400).json({ message: 'Invalid password' });
+		}
+
+		const hashedPassword = await bcrypt.hash(req.body.newpassword, 10);
+		user.password = hashedPassword;
+	}
 
 	user = await user.save();
 	return res.status(200).json(user);
@@ -100,12 +79,26 @@ const deleteAllUser = async (req, res) => {
 	res.status(204).json({ message: 'All users deleted' });
 };
 
+// POST /api/users/
+const createUser = async (req, res) => {
+	const { username, email, password, isAdmin } = req.body;
+	const hashedPassword = await bcrypt.hash(password, 10);
+	const user = new User({
+		username,
+		email,
+		password: hashedPassword,
+		isAdmin
+	});
+	await user.save();
+	res.status(201).json(user);
+};
+
 export default {
 	getUsers,
-	createUser,
 	getCurrentUser,
 	updateCurrentUser,
 	getUserById,
 	deleteUserAsAdmin,
-	deleteAllUser
+	deleteAllUser,
+	createUser
 };

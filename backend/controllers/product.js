@@ -14,6 +14,7 @@ const getOneProduct = async (req, res) => {
 const createProduct = async (req, res) => {
 	const { title, price, description, category, image } = req.body;
 	const user = await User.findById(req.user.id);
+
 	const product = new Product({
 		title,
 		price,

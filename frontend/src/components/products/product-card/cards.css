@@ -16,6 +16,7 @@
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
 	padding-bottom: 10px;
 	min-height: 15rem;
+	color: black;
 }
 
 /* Product Image */

@@ -2,38 +2,27 @@ import express from 'express';
 import userController from '../controllers/user.js';
 import authController from '../controllers/auth.js';
 
-import {
-	authenticateToken,
-	authorizeAdmin
-} from '../middleware/auth-handle.js';
+import { requireAuth, adminAuth } from '../middleware/auth-handle.js';
 
 const router = express.Router();
 
-router.get('/', authenticateToken, authorizeAdmin, userController.getUsers);
+router.get('/', requireAuth, adminAuth, userController.getUsers);
 
-router.post('/', userController.createUser);
+router.get('/profile', requireAuth, userController.getCurrentUser);
 
-router.get('/profile', authenticateToken, userController.getCurrentUser);
+router.put('/profile', requireAuth, userController.updateCurrentUser);
 
-router.put('/profile', authenticateToken, userController.updateCurrentUser);
+router.get('/:id', requireAuth, adminAuth, userController.getUserById);
 
-router.get(
-	'/:id',
-	authenticateToken,
-	authorizeAdmin,
-	userController.getUserById
-);
-
-router.delete(
-	'/:id',
-	authenticateToken,
-	authorizeAdmin,
-	userController.deleteUserAsAdmin
-);
+router.delete('/:id', requireAuth, adminAuth, userController.deleteUserAsAdmin);
 
 // Special just for me, remove later
 router.delete('/', userController.deleteAllUser);
+
+router.post('/', userController.createUser);
 ///////////
+
+router.post('/signup', authController.signup);
 
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);

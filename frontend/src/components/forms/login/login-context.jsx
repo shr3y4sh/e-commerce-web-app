@@ -1,3 +1,15 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
-export const LoginContext = createContext(false);
+export const LoginContext = createContext({
+	logged: {
+		token: null,
+		isLog: false
+	},
+	setLogged: () => {}
+});
+
+export function useLogin() {
+	const { logged, setLogged } = useContext(LoginContext);
+
+	return [logged, setLogged];
+}

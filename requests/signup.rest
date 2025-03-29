@@ -1,0 +1,24 @@
+POST http://localhost:5000/api/users/signup
+Content-Type: application/json
+
+{
+		"username": "sarah_miller",
+		"email": "sarah.miller@example.com",
+		"password": "S@rahPass99",
+        "confirmpassword": "S@rahPass99"
+}
+
+###
+POST http://localhost:5000/api/users/
+Content-Type: application/json
+
+{
+		"username": "olivia_taylor",
+		"email": "olivia.taylor@example.com",
+		"password": "Taylor@Secure",
+		"isAdmin": true
+	}
+
+###
+GET http://localhost:5000/api/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U4MjkwZDdkMWRhYjQzY2E0MzUxZjMiLCJpYXQiOjE3NDMyNzY4NDcsImV4cCI6MTc0MzM2MzI0N30.iuG1nIIYJh6MLHuso0Mkmq6X9f7VdYMXvTlpM_LYyxI

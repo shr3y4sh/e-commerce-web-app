@@ -1,31 +1,20 @@
-import jwt from 'jsonwebtoken';
-
+import { expressjwt } from 'express-jwt';
 import User from '../models/user.js';
 
-const authenticateToken = async (req, res, next) => {
-	const token = req.cookies.token;
+export const requireAuth = expressjwt({
+	secret: () => process.env.JWT_SECRET,
+	algorithms: ['HS256']
+});
 
-	if (!token) {
-		res.status(401).json({ message: 'Unauthorized' });
-		return;
+export const adminAuth = async (req, res, next) => {
+	const user = await User.findById(req.auth.userId);
+
+	if (!user.isAdmin) {
+		return res.status(403).json({
+			message: 'You are not authorized to perform this action'
+		});
+	} else {
+		req.user = user;
+		next();
 	}
-
-	const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
-	const user = await User.findById(decodedToken.userId);
-
-	req.user = user;
-
-	next();
 };
-
-const authorizeAdmin = async (req, res, next) => {
-	if (!req.user.isAdmin || !req.user) {
-		res.status(403).json({ message: 'Forbidden' });
-		return;
-	}
-
-	next();
-};
-
-export { authenticateToken, authorizeAdmin };

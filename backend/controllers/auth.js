@@ -20,14 +20,7 @@ const login = async (req, res) => {
 
 	const token = generateToken(user);
 
-	res.cookie('token', token, {
-		httpOnly: true,
-		secure: process.env.NODE_ENV !== 'development',
-		sameSite: 'strict',
-		maxAge: 24 * 60 * 60 * 1000 // 24 hour age
-	});
-
-	res.status(200).json({ message: 'Login successful' });
+	res.status(200).json({ token, username: user.username, email: user.email });
 };
 
 // POST /api/users/logout
@@ -36,7 +29,44 @@ const logout = async (req, res) => {
 	res.status(200).json({ message: 'Logout successful' });
 };
 
+const signup = async (req, res) => {
+	const { username, email, password, confirmpassword } = req.body;
+
+	if (!(username && password && email)) {
+		return res.status(400).json({ message: 'Missing required fields' });
+	}
+
+	const existingUser = await User.findOne({ email: email });
+
+	if (existingUser) {
+		return res.status(400).json({ message: 'Email already exists' });
+	}
+
+	if (password !== confirmpassword) {
+		return res.status(400).json({ message: 'Passwords do not match' });
+	}
+
+	if (password.length < 5) {
+		return res.status(400).json({
+			message: 'Password must be at least 5 characters long'
+		});
+	}
+
+	const passwordHash = await bcrypt.hash(password, 10);
+
+	const newUser = new User({
+		username,
+		email,
+		password: passwordHash,
+		isAdmin: false
+	});
+
+	const savedUser = await newUser.save();
+	res.status(201).json(savedUser);
+};
+
 export default {
 	login,
-	logout
+	logout,
+	signup
 };

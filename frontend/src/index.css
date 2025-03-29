@@ -7,11 +7,16 @@
 body {
 	padding: 0;
 	margin: 0;
-
+	background-color: #0d0f19;
 	font-family: 'Roboto Slab', serif;
 	font-optical-sizing: auto;
 	font-weight: 500;
 	font-style: normal;
+	color: antiquewhite;
+}
+
+h1 {
+	text-align: center;
 }
 
 button {
@@ -30,4 +35,39 @@ main {
 	text-align: center;
 	font-size: 3rem;
 	/* margin: auto; */
+}
+
+.hero {
+	background: url('https://source.unsplash.com/1600x600/?fashion') no-repeat
+		center center/cover;
+	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: white;
+}
+
+.hero-content h1 {
+	font-size: 48px;
+	margin: 0;
+}
+
+.hero-content p {
+	font-size: 18px;
+	margin: 10px 0 20px;
+}
+
+.btn {
+	background: #ff5a5f;
+	color: white;
+	padding: 12px 20px;
+	text-decoration: none;
+	font-weight: bold;
+	border-radius: 5px;
+	transition: 0.3s;
+}
+
+.btn:hover {
+	background: #e04e52;
 }

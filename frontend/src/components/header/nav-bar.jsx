@@ -1,40 +1,33 @@
 import './header.css';
-import { useContext } from 'react';
-import { LoginContext } from '../forms/login/login-context';
 
 export default function NavBar({ highlight, togglePage, login }) {
-	const isLoggedIn = useContext(LoginContext);
-
 	return (
-		<LoginContext.Provider value={login.current}>
+		<>
 			<div className='nav-bar'>
 				<div className='nav-bar-item'>
 					<button
 						className={highlight === 'home' ? 'active' : ''}
-						onClick={(e) => {
-							e.stopPropagation();
+						onClick={() => {
 							togglePage('home');
 						}}>
 						Home
-					</button>
+					</button>{' '}
 				</div>
 				<div className='nav-bar-item'>
 					<button
 						className={highlight === 'products' ? 'active' : ''}
-						onClick={(e) => {
-							e.stopPropagation();
+						onClick={() => {
 							togglePage('products');
 						}}>
 						Products
-					</button>
+					</button>{' '}
 				</div>
-				{isLoggedIn && (
+				{login && (
 					<>
 						<div className='nav-bar-item'>
 							<button
 								className={highlight === 'cart' ? 'active' : ''}
-								onClick={(e) => {
-									e.stopPropagation();
+								onClick={() => {
 									togglePage('cart');
 								}}>
 								Cart
@@ -45,8 +38,7 @@ export default function NavBar({ highlight, togglePage, login }) {
 								className={
 									highlight === 'orders' ? 'active' : ''
 								}
-								onClick={(e) => {
-									e.stopPropagation();
+								onClick={() => {
 									togglePage('orders');
 								}}>
 								Orders
@@ -56,7 +48,7 @@ export default function NavBar({ highlight, togglePage, login }) {
 				)}
 			</div>
 			<div className='nav-bar'>
-				{!isLoggedIn && (
+				{!login && (
 					<>
 						{' '}
 						<div>
@@ -64,8 +56,7 @@ export default function NavBar({ highlight, togglePage, login }) {
 								className={
 									highlight === 'login' ? 'active' : ''
 								}
-								onClick={(e) => {
-									e.stopPropagation();
+								onClick={() => {
 									togglePage('login');
 								}}>
 								Login
@@ -82,7 +73,7 @@ export default function NavBar({ highlight, togglePage, login }) {
 						</div>
 					</>
 				)}
-				{isLoggedIn && (
+				{login && (
 					<div className='nav-bar-item'>
 						<button
 							className={highlight === 'profile' ? 'active' : ''}
@@ -92,6 +83,6 @@ export default function NavBar({ highlight, togglePage, login }) {
 					</div>
 				)}
 			</div>
-		</LoginContext.Provider>
+		</>
 	);
 }

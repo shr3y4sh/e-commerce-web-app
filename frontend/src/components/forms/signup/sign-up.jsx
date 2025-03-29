@@ -1,9 +1,30 @@
-export default function SignUpForm() {
+import '../forms.css';
+
+export default function SignUpForm({ mutation }) {
 	function handleSignUp(formData) {
 		const username = formData.get('username');
 		const password = formData.get('password');
 		const email = formData.get('email');
-		const confirmPassword = formData.get('confirm-password');
+		const confirmpassword = formData.get('confirm-password');
+
+		if (password !== confirmpassword) {
+			alert('Passwords do not match');
+			return;
+		}
+
+		if (password.length < 5) {
+			alert('Password must be at least 5 characters');
+			return;
+		}
+
+		const user = {
+			username,
+			email,
+			password,
+			confirmpassword
+		};
+
+		mutation.mutate(user);
 	}
 
 	return (
@@ -31,9 +52,22 @@ export default function SignUpForm() {
 					/>
 				</div>
 				<div>
-					<button type='submit'>Sign Up</button>
+					<button className='submit-button' type='submit'>
+						Sign Up
+					</button>
 				</div>
 			</form>
+
+			<div className='notification'>
+				{mutation.isError && (
+					<p className='error'>Error: {mutation.error.message}</p>
+				)}
+				{mutation.isPending && <p>Pending...</p>}
+
+				{mutation.isSuccess && (
+					<p className='success'>User created successfully</p>
+				)}
+			</div>
 		</>
 	);
 }
