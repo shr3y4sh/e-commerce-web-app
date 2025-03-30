@@ -20,7 +20,7 @@ const login = async (req, res) => {
 
 	const token = generateToken(user);
 
-	res.status(200).json({ token, username: user.username, email: user.email });
+	res.status(200).json({ token });
 };
 
 // POST /api/users/logout
@@ -64,6 +64,8 @@ const signup = async (req, res) => {
 	const savedUser = await newUser.save();
 	res.status(201).json(savedUser);
 };
+
+const refreshToken = async (req, res) => {};
 
 export default {
 	login,

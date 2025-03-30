@@ -4,9 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"backend": "node --watch backend/index.js",
-		"frontend": "npm run dev --prefix frontend",
-		"dev": "concurrently \"npm run start\" \"npm run frontend\""
+		"dev": "node --watch",
+		"test": "node --test --test-concurrency=1",
+		"build:ui": "rm -rf dist && cd ../frontend/ && npm run build && cp -r dist ../backend/ && cd ../backend/"
 	},
 	"keywords": [],
 	"author": "",
