@@ -1,4 +1,4 @@
-import userController from '../controllers/user';
+import userController from '../controllers/user.js';
 
 import express from 'express';
 

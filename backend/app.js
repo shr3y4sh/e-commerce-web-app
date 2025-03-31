@@ -7,10 +7,10 @@ import connnectDB from './config/db.js';
 
 import { errorHandle, unknownEndpoint } from './middleware/error-handle.js';
 
-import userRouter from './routes/protected/user-routes.js';
+import userRouter from './routes/protected/users.js';
 import productRouter from './routes/product-routes.js';
 import productAuthRouter from './routes/protected/products.js';
-import authRouter from './routes/auth-routes.js';
+import authRouter from './routes/protected/auth-routes.js';
 
 //
 import secretRouter from './routes/secret-route.js';

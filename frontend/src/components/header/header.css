@@ -17,8 +17,7 @@
 	color: #fff;
 }
 
-.nav-bar button,
-.nav-bar button.active {
+.nav-bar button {
 	color: #fff;
 	text-decoration: none;
 	border: none;
