@@ -1,7 +1,5 @@
 import { useState } from 'react';
-
 import { LoginContext } from './login-context';
-
 export function LoginProvider({ children }) {
 	const [logged, setLogged] = useState({
 		token: null,

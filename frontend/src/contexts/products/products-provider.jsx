@@ -1,5 +1,4 @@
 import { useReducer } from 'react';
-
 import { ProductContext, ProductDispatchContext } from './context';
 
 export function ProductsProvider({ children }) {

@@ -1,8 +1,7 @@
 import './product-card/cards.css';
+import { ProductsProvider } from '../../contexts/products/products-provider';
 
-import { ProductsProvider } from './products-provider';
-
-import DisplayCard from './product-card/display-card';
+import DisplayCard from './product-card/DisplayCard';
 
 export default function ProductsPage({ initialProducts }) {
 	const products = initialProducts;

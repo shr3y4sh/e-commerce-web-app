@@ -1,4 +1,7 @@
-import { useProducts, useProductsDispatch } from '../../products/context';
+import {
+	useProductsDispatch,
+	useProducts
+} from '../../../contexts/products/context';
 
 export default function ProductForm({ isEditing }) {
 	const dispatch = useProductsDispatch();

@@ -1,4 +1,3 @@
-import React from 'react';
 import './user-profile.css';
 
 function UserProfile({ username, email }) {
