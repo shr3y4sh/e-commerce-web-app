@@ -1,29 +1,87 @@
-import { NavLink } from 'react-router';
-
 import './header.css';
 
-export default function NavBar({ login }) {
+export default function NavBar({ highlight, togglePage, login }) {
 	return (
 		<>
 			<div className='nav-bar'>
 				<div className='nav-bar-item'>
-					<NavLink to='/'>Home</NavLink>
+					<button
+						className={highlight === 'home' ? 'active' : ''}
+						onClick={() => {
+							togglePage('home');
+						}}>
+						Home
+					</button>{' '}
 				</div>
 				<div className='nav-bar-item'>
-					<NavLink to='/products'>Products</NavLink>
+					<button
+						className={highlight === 'products' ? 'active' : ''}
+						onClick={() => {
+							togglePage('products');
+						}}>
+						Products
+					</button>{' '}
 				</div>
-
-				<div className='nav-bar-item'>
-					<NavLink to='/login'>Login</NavLink>
-				</div>
-				<div className='nav-bar-item'>
-					<NavLink to='/signup'>Signup</NavLink>
-				</div>
+				{login && (
+					<>
+						<div className='nav-bar-item'>
+							<button
+								className={highlight === 'cart' ? 'active' : ''}
+								onClick={() => {
+									togglePage('cart');
+								}}>
+								Cart
+							</button>
+						</div>
+						<div className='nav-bar-item'>
+							<button
+								className={
+									highlight === 'orders' ? 'active' : ''
+								}
+								onClick={() => {
+									togglePage('orders');
+								}}>
+								Orders
+							</button>
+						</div>
+					</>
+				)}
 			</div>
 			<div className='nav-bar'>
-				<div className='nav-bar-item'>
-					<NavLink to='/profile'>Profile</NavLink>
-				</div>
+				{!login && (
+					<>
+						{' '}
+						<div>
+							<button
+								className={
+									highlight === 'login' ? 'active' : ''
+								}
+								onClick={() => {
+									togglePage('login');
+								}}>
+								Login
+							</button>
+						</div>
+						<div className='nav-bar-item'>
+							<button
+								className={
+									highlight === 'signup' ? 'active' : ''
+								}
+								onClick={() => togglePage('signup')}>
+								Sign Up
+							</button>
+						</div>
+					</>
+				)}
+				{login && (
+					<div className='nav-bar-item'>
+						<button
+							className={highlight === 'profile' ? 'active' : ''}
+							onClick={() => togglePage('profile')}>
+							Profile
+						</button>
+					</div>
+				)}
 			</div>
 		</>
 	);

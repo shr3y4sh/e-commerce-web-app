@@ -1,6 +1,6 @@
 import express from 'express';
-import productController from '../../controllers/product.js';
-import { requireAuth, adminAuth } from '../../middleware/auth-handle.js';
+import productController from '../controllers/product.js';
+import { requireAuth, adminAuth } from '../middleware/auth-handle.js';
 
 const router = express.Router();
 

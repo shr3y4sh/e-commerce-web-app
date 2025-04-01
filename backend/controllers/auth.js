@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import User from '../models/user.js';
-import jwt from 'jsonwebtoken';
+
 import generateToken from '../utils/jwt-gen.js';
 
 // POST /api/users/login
@@ -65,17 +65,10 @@ const signup = async (req, res) => {
 	res.status(201).json(savedUser);
 };
 
-const refreshToken = async (req, res) => {
-	const token = req.headers.authorization.split(' ')[1];
-	const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-	const user = await User.findById(decodedToken.userId);
-	const newToken = generateToken(user);
-	return res.status(200).json({ token: newToken });
-};
+const refreshToken = async (req, res) => {};
 
 export default {
 	login,
 	logout,
-	signup,
-	refreshToken
+	signup
 };

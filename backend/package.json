@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "node --watch index.js",
+		"dev": "node --watch",
 		"test": "node --test --test-concurrency=1",
 		"build:ui": "rm -rf dist && cd ../frontend/ && npm run build && cp -r dist ../backend/ && cd ../backend/"
 	},

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export async function loginUser(nextUser) {
 	const res = await fetch(`/api/users/login`, {
 		method: 'POST',
@@ -11,23 +13,11 @@ export async function loginUser(nextUser) {
 }
 
 export async function authorize(token) {
-	await fetch('/api/protected', {
-		method: 'GET',
+	await axios.get('/api/protected', {
 		headers: {
 			Authorization: `Bearer ${token}`
 		}
 	});
-}
-
-export async function handleTokenRefresh(token) {
-	const res = await fetch('/api/refresh-token', {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${token}`
-		}
-	});
-
-	return await res.json();
 }
 
 export async function addUser(nextUser) {
