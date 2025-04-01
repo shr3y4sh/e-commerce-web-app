@@ -1,5 +1,7 @@
+const BASE_URL = '/api';
+
 export async function loginUser(nextUser) {
-	const res = await fetch(`/api/users/login`, {
+	const res = await fetch(`${BASE_URL}/users/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -11,7 +13,7 @@ export async function loginUser(nextUser) {
 }
 
 export async function addUser(nextUser) {
-	const res = await fetch(`/api/users/signup`, {
+	const res = await fetch(`${BASE_URL}/users/signup`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'

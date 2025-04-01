@@ -1,10 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { useLogin } from './contexts/login/login-context';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-
-import { LoginProvider } from './contexts/login/login-provider';
 
 import { getAllProducts } from './api/products';
 import { addUser } from './api/users';
@@ -21,29 +18,34 @@ const queryClient = new QueryClient();
 function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<LoginProvider>
-				<Home />
-			</LoginProvider>
+			<Home />
 		</QueryClientProvider>
 	);
 }
 
-function Hero({ setCurrentRoute }) {
-	return (
-		<div className='hero-content'>
-			<h1>Find everything you want</h1>
-			<p>Discover the latest tech-gadgets at unbeatable prices.</p>
-			<button className='btn' onClick={setCurrentRoute}>
-				Shop Now
-			</button>
-		</div>
-	);
-}
 function Home() {
 	const [currentRoute, setCurrentRoute] = useState('home');
-	const [logged, _] = useLogin();
 
-	const [user, setuser] = useState(null);
+	const [user, setUser] = useState(null);
+
+	useEffect(() => {
+		const token = localStorage.getItem('token');
+		if (!token) {
+			return;
+		}
+		fetch('/api/users/profile', {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
+			.then((res) => {
+				setUser(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 
 	const productQuery = useQuery({
 		queryKey: ['products'],
@@ -60,7 +62,7 @@ function Home() {
 				<NavBar
 					highlight={currentRoute}
 					togglePage={(newRoute) => setCurrentRoute(newRoute)}
-					login={logged.isLog}
+					login={user !== null}
 				/>
 			</HeaderLayout>
 			<main>
@@ -77,7 +79,7 @@ function Home() {
 
 				{currentRoute === 'login' && (
 					<Login
-						setUserLogin={setuser}
+						setUserLogin={setUser}
 						setCurrentRoute={setCurrentRoute}
 					/>
 				)}
@@ -94,4 +96,15 @@ function Home() {
 	);
 }
 
+function Hero({ setCurrentRoute }) {
+	return (
+		<div className='hero-content'>
+			<h1>Find everything you want</h1>
+			<p>Discover the latest tech-gadgets at unbeatable prices.</p>
+			<button className='btn' onClick={setCurrentRoute}>
+				Shop Now
+			</button>
+		</div>
+	);
+}
 export default App;

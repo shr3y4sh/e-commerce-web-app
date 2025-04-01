@@ -9,14 +9,9 @@ const getUsers = async (req, res) => {
 };
 
 // GET /api/users/profile
-const getCurrentUser = async (req, res) => {
-	const user = await User.findById(req.auth.userId);
-
-	if (!user) {
-		return res.status(404).json({ message: 'User not found' });
-	}
-
-	res.status(200).json(user);
+const getCurrentUser = (req, res) => {
+	const user = req.user;
+	res.status(200).json({ username: user.username, email: user.email });
 };
 
 // PUT /api/users/profile

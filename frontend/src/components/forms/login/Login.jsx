@@ -1,37 +1,19 @@
-import { useMutation } from '@tanstack/react-query';
-
-import { useLogin } from '../../../contexts/login/login-context';
 import { loginUser } from '../../../api/users';
 import '../forms.css';
 
-export default function Login({ setUserLogin, setCurrentRoute }) {
-	const [logged, setLogged] = useLogin();
-
-	const loginMutation = useMutation({
-		mutationFn: loginUser,
-		onSuccess: (data) => {
-			setLogged({
-				...logged,
-				token: data.token,
-				isLog: true
-			});
-			setUserLogin({
-				username: data.username,
-				email: data.email
-			});
-
-			setCurrentRoute('profile');
-		},
-		onError: (error) => {
-			console.log(error);
-		}
-	});
-
-	function handleLogin(formData) {
+export default function Login({ setCurrentRoute, setUser }) {
+	async function handleLogin(formData) {
 		const email = formData.get('email');
 		const password = formData.get('password');
-
-		loginMutation.mutate({ email, password });
+		const data = await loginUser({ email, password });
+		const token = data.token;
+		const user = {
+			username: data.username,
+			email: data.email
+		};
+		localStorage.setItem('token', token);
+		setUser(user);
+		setCurrentRoute('home');
 	}
 
 	return (

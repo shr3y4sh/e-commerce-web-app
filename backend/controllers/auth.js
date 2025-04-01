@@ -23,12 +23,6 @@ const login = async (req, res) => {
 	res.status(200).json({ token, username: user.username, email: user.email });
 };
 
-// POST /api/users/logout
-const logout = async (req, res) => {
-	res.clearCookie('token');
-	res.status(200).json({ message: 'Logout successful' });
-};
-
 const signup = async (req, res) => {
 	const { username, email, password, confirmpassword } = req.body;
 
@@ -67,6 +61,5 @@ const signup = async (req, res) => {
 
 export default {
 	login,
-	logout,
 	signup
 };
