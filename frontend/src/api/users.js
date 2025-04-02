@@ -1,12 +1,12 @@
 const BASE_URL = '/api';
 
-export async function loginUser(nextUser) {
+export async function loginUser({ email, password }) {
 	const res = await fetch(`${BASE_URL}/users/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(nextUser)
+		body: JSON.stringify({ email, password })
 	});
 
 	return await res.json();

@@ -14,7 +14,6 @@ export async function getAllProducts() {
 			error.code = res.status;
 			throw error;
 		}
-		console.log(res);
 
 		return await res.json();
 	} catch (error) {

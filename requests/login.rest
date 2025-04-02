@@ -5,3 +5,6 @@ Content-Type: application/json
     "email": "olivia.taylor@example.com",
     "password": "Taylor@Secure"
 }
+
+###
+GET http://localhost:5000/api/users/profile

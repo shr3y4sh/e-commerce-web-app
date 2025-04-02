@@ -1,5 +1,6 @@
 import Product from '../models/products.js';
 import User from '../models/user.js';
+// import  from '-html';
 
 const getAllProducts = async (req, res) => {
 	const products = await Product.find({});

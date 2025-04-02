@@ -1,13 +1,18 @@
 import bcrypt from 'bcryptjs';
 import User from '../models/user.js';
+// import  from '-html';
 
 import generateToken from '../utils/jwt-gen.js';
 
 // POST /api/users/login
 const login = async (req, res) => {
 	const { email, password } = req.body;
-
+	console.log(email, password);
 	const user = await User.findOne({ email });
+
+	if (!user) {
+		return res.status(400).json({ error: `User with ${email} not found` });
+	}
 
 	let passwordCorrect = await bcrypt.compare(password, user.password);
 
@@ -51,8 +56,7 @@ const signup = async (req, res) => {
 	const newUser = new User({
 		username,
 		email,
-		password: passwordHash,
-		isAdmin: false
+		password: passwordHash
 	});
 
 	const savedUser = await newUser.save();

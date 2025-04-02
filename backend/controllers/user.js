@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import User from '../models/user.js';
 import bcrypt from 'bcryptjs';
+// import  from '-html';
 
 // GET /api/users
 const getUsers = async (req, res) => {
@@ -16,7 +17,7 @@ const getCurrentUser = (req, res) => {
 
 // PUT /api/users/profile
 const updateCurrentUser = async (req, res) => {
-	let user = await User.findById(req.auth.userId);
+	let user = await User.findById(req.user.id);
 	if (!user) {
 		return res.status(404).json({ message: 'User not found' });
 	}

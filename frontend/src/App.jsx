@@ -25,7 +25,6 @@ function App() {
 
 function Home() {
 	const [currentRoute, setCurrentRoute] = useState('home');
-
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
@@ -39,13 +38,12 @@ function Home() {
 				Authorization: `Bearer ${token}`
 			}
 		})
-			.then((res) => {
-				setUser(res.data);
+			.then(async (res) => {
+				const data = await res.json();
+				setUser(data);
 			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
+			.catch((err) => console.error(err));
+	}, [user]);
 
 	const productQuery = useQuery({
 		queryKey: ['products'],
@@ -79,7 +77,7 @@ function Home() {
 
 				{currentRoute === 'login' && (
 					<Login
-						setUserLogin={setUser}
+						setUser={setUser}
 						setCurrentRoute={setCurrentRoute}
 					/>
 				)}
@@ -89,7 +87,11 @@ function Home() {
 				)}
 
 				{currentRoute === 'profile' && (
-					<UserProfile username={user.username} email={user.email} />
+					<UserProfile
+						user={user}
+						setCurrentRoute={setCurrentRoute}
+						setUser={setUser}
+					/>
 				)}
 			</main>
 		</>
