@@ -34,4 +34,6 @@ orderSchema.set('toJSON', {
 	}
 });
 
-export default mongoose.model('order', orderSchema);
+const Order = mongoose.model('order', orderSchema);
+
+export default Order;

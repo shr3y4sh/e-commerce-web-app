@@ -4,25 +4,24 @@ const productSchema = new mongoose.Schema(
 	{
 		title: {
 			type: String,
-			required: true,
-			minlength: 3
+			required: true
 		},
 		price: {
 			type: Number,
-			required: true
+			required: true,
+			min: 0
 		},
 		description: {
 			type: String,
-			required: true,
-			minlength: 8
+			required: true
 		},
 		category: {
 			type: String,
 			required: true
 		},
-		image: {
-			type: String,
-			required: true
+		isFeatured: {
+			type: Boolean,
+			default: false
 		}
 	},
 	{
@@ -38,4 +37,6 @@ productSchema.set('toJSON', {
 	}
 });
 
-export default mongoose.model('product', productSchema);
+const Product = mongoose.model('product', productSchema);
+
+export default Product;

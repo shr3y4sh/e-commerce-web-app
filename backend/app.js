@@ -1,32 +1,38 @@
+// PACKAGES
 import express from 'express';
-import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import 'dotenv/config';
 import 'express-async-errors';
-import connnectDB from './config/db.js';
+import cookieParser from 'cookie-parser';
 
+// MIDDLEWARES
+import { requestInfo } from './middlewares/misc.middleware.js';
+import connectToDatabase from './utils/mongo.utils.js';
+
+// ROUTES
+import authRoutes from './routes/auth.routes.js';
+import productsRoutes from './routes/products.routes.js';
 import {
-	errorHandle,
-	unknownEndpoint,
-	requestLogger
-} from './middleware/error-handle.js';
-
-import userRouter from './routes/user-routes.js';
-import productRouter from './routes/product-routes.js';
-dotenv.config();
+	errorHandler,
+	unknownEndpoint
+} from './middlewares/errorHandle.middleware.js';
 
 const app = express();
-app.use(cors());
-app.use(express.urlencoded({ extended: false }));
+
+////
 app.use(express.json());
-app.use(requestLogger);
+app.use(cookieParser());
+app.use(cors());
+app.use(requestInfo);
 
-app.use('/api/users', userRouter);
-app.use('/api/products', productRouter);
+////
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productsRoutes);
 
+////
 app.use(unknownEndpoint);
-app.use(errorHandle);
+app.use(errorHandler);
 
-await connnectDB();
+connectToDatabase();
 
 export default app;
