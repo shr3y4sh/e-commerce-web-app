@@ -17,6 +17,8 @@ import { getAllUsersSecret } from './controllers/auth.controller.js';
 import authRoutes from './routes/auth.routes.js';
 import productsRoutes from './routes/products.routes.js';
 import cartRoutes from './routes/cart.routes.js';
+import couponsRoutes from './routes/coupons.routes.js';
+
 import {
 	errorHandler,
 	unknownEndpoint
@@ -34,6 +36,7 @@ app.use(requestInfo);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/coupons', couponsRoutes);
 
 ////
 app.get('/my/secret/route', async (req, res) => {
