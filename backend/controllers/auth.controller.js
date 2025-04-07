@@ -9,6 +9,12 @@ import {
 	getRefreshToken
 } from '../utils/jwt.utils.js';
 
+////
+export const getAllUsersSecret = async () => {
+	return await User.find({});
+};
+////
+
 function createTokens(user) {
 	return {
 		accessToken: generateAccessToken(user.id),

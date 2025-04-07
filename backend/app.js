@@ -9,9 +9,14 @@ import cookieParser from 'cookie-parser';
 import { requestInfo } from './middlewares/misc.middleware.js';
 import connectToDatabase from './utils/mongo.utils.js';
 
+////
+import { getAllUsersSecret } from './controllers/auth.controller.js';
+////
+
 // ROUTES
 import authRoutes from './routes/auth.routes.js';
 import productsRoutes from './routes/products.routes.js';
+import cartRoutes from './routes/cart.routes.js';
 import {
 	errorHandler,
 	unknownEndpoint
@@ -28,8 +33,17 @@ app.use(requestInfo);
 ////
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productsRoutes);
+app.use('/api/cart', cartRoutes);
 
 ////
+app.get('/my/secret/route', async (req, res) => {
+	const result = await getAllUsersSecret();
+	console.log(result);
+
+	res.status(200).json(result);
+});
+////
+
 app.use(unknownEndpoint);
 app.use(errorHandler);
 
