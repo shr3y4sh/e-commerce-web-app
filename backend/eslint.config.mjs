@@ -1,33 +1,66 @@
+// @ts-check
 import eslint from '@eslint/js';
+import vitest from '@vitest/eslint-plugin';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import stylistic from '@stylistic/eslint-plugin';
 
-export default tseslint.config({
-	files: ['**/*.ts'],
-	extends: [
-		eslint.configs.recommended,
-		...tseslint.configs.recommendedTypeChecked
-	],
-	languageOptions: {
-		parserOptions: {
-			project: true,
-			tsconfigRootDir: import.meta.dirname
-		}
-	},
-	plugins: {
-		'@stylistic': stylistic
-	},
-	rules: {
-		'@stylistic/semi': 'error',
-		'@typescript-eslint/no-unsafe-assignment': 'error',
-		'@typescript-eslint/no-explicit-any': 'error',
-		'@typescript-eslint/explicit-function-return-type': 'off',
-		'@typescript-eslint/explicit-module-boundary-types': 'off',
-		'@typescript-eslint/restrict-template-expressions': 'off',
-		'@typescript-eslint/restrict-plus-operands': 'off',
-		'@typescript-eslint/no-unused-vars': [
-			'error',
-			{ argsIgnorePattern: '^_' }
-		]
-	}
-});
+// This is just an example default config for ESLint.
+// You should change it to your needs following the documentation.
+export default tseslint.config(
+  {
+    ignores: ['**/build/**', '**/tmp/**', '**/coverage/**'],
+  },
+  eslint.configs.recommended,
+  eslintConfigPrettier,
+  {
+    extends: [...tseslint.configs.recommended],
+
+    files: ['**/*.ts', '**/*.mts'],
+
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
+    },
+
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+    },
+
+    languageOptions: {
+      parser: tseslint.parser,
+      ecmaVersion: 2020,
+      sourceType: 'module',
+
+      globals: {
+        ...globals.node,
+      },
+
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+    },
+  },
+  {
+    files: ['__tests__/**'],
+
+    plugins: {
+      vitest,
+    },
+
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+
+    settings: {
+      vitest: {
+        typecheck: true,
+      },
+    },
+
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
+    },
+  },
+);
