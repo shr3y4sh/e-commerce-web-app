@@ -20,5 +20,5 @@
         "strictNullChecks": false,
         "typeRoots": ["./types/"]
     },
-    "include": ["src", "__tests__", "index.d.ts", "types"]
+    "include": ["src", "__tests__", "types"]
 }

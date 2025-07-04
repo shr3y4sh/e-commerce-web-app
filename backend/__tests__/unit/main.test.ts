@@ -1,8 +1,12 @@
-import { describe, it, expect } from "vitest";
+import { it, expect } from "vitest";
+import request from "supertest";
+import app from "../../src/main.js";
 
-describe("user authentication", async () => {
-    it("test 1", async () => {
-        const x = 90;
-        expect(x).equals(90);
-    });
+it("should send status 200", async () => {
+    const response = await request(app)
+        .get("/hello")
+        .expect(200)
+        .expect("Content-Type", /text/);
+
+    expect(response.text).toStrictEqual("Hello");
 });
